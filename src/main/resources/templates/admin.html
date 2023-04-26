@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет администратора</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <h1>Личный кабинет администратора</h1>
+    <form method="post" th:action="@{/logout}">
+        <button type="submit">Выйти из личного кабинета</button>
+    </form>
+    <a href="admin/product/add">Добавить товар</a>
+    <hr>
+    <div th:each="product : ${products}">
+        <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+        <p th:text="'Описание: ' + ${product.getDescription()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
+        <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+        <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+        <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактирование товара</a>
+        <br>
+        <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удаление товара</a>
+        <hr>
+    </div>
+    <h3>Каталог товаров:</h3>
+    <div th:each="product : ${products}">
+        <img id="god" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+        <br>
+        <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <hr>
+    </div>
+    <div class="footer">
+        <a href="#">Вернуться</a>
+    </div>
+</div>
+</body>
+</html>
